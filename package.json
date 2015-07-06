@@ -1,0 +1,23 @@
+{
+  "name": "yuxiu",
+  "version": "0.0.1",
+  "description": "Use etag to realize the mechanism of session ",
+  "main": "app.js",
+  "dependencies": {
+    "iconv-lite": "^0.4.11",
+    "koa": "^0.21.0",
+    "koa-static": "^1.4.9",
+    "koa-logger": "^1.2.2",
+    "koa-router": "^5.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "etag",
+    "session"
+  ],
+  "author": "yuxiu",
+  "license": "MIT"
+}

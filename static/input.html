@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+    <form action="/login" method="post">
+        <input type="text" name="usrname">
+        <input type="password" name="pwd">
+        <input type="hidden" name="etag">
+        <input type="submit" name="submit">
+    </form>
+
+
+    <script>
+        function $(n){
+            return document.querySelectorAll(n);
+        }
+
+        function asyncLoad(src) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            document.body.appendChild(s);
+        }
+
+        function DO(){
+            this.cbs = [];
+        }
+        DO.prototype.on = function(k,cb){
+            if(!this.cbs[k]) {
+                this.cbs[k] = [];
+            }
+            this.cbs[k].push(cb);
+        };
+        DO.prototype.do = function(k,data){
+            if(!this.cbs[k])
+            return;
+            var cbs = this.cbs[k],len = cbs.length;
+            for(var i=0;i<len;i++){
+                cbs[i].call(this,data);
+            }
+        };
+
+        asyncLoad('/_eTag_.js');
+        var d = new DO();
+        d.on('etag-ready',function(_session){
+            console.log('etag-ready...');
+            console.log(_session);
+            if(_session && _session.etag && !_session.usrname) {
+                $('[name=etag]')[0].value = _session.etag;
+            }else {
+                $('[name=usrname]')[0].value = _session.usrname;
+                $('[name=pwd]')[0].value = _session.pwd;
+                $('[name=etag]')[0].value = _session.etag;
+            }
+        })
+
+    </script>
+</body>
+</html>
